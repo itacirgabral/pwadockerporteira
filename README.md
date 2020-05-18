@@ -1,4 +1,5 @@
 ![estacionamento](./public/android-chrome-384x384.png)
+
 PWA, nodejs e SQL em docker-compose para raspberry.
 
 # Clonar o repositório
@@ -13,4 +14,4 @@ docker-compose up -d --build
 ```
 
 # Ngrok
-na porta 4040 do host do docker fica disponível os tuneis associados
+na porta 4040 do host do docker fica disponível os tuneis associados. Edite o `docker-compose.yml` inserindo a chave de acesso da sua conta.
