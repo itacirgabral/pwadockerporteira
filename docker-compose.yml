@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  web:
+    build: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+    restart: unless-stopped
+  db:
+    image: jsurf/rpi-mariadb
+    ports:
+      - '3306:3306'
+    restart: unless-stopped
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: banco
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: itacirgabral
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+  proxy:
+    image: wernight/ngrok:armhf
+    ports:
+      - '4040:4040'
+    restart: unless-stopped
+    environment:
+      NGROK_AUTH: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      NGROK_PORT: 'web:8080'
+      NGROK_BINDTLS: 'true'
+    depends_on:
+      - web
